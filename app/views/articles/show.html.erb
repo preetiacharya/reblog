@@ -1,0 +1,49 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Category Id:</strong>
+  <%= @article.category_id %>
+</p>
+
+<p>
+  <strong>Article Title:</strong>
+  <%= @article.title %>
+</p>
+
+<p>
+  <strong>Body:</strong>
+  <%= @article.body %>
+</p>
+
+<p>
+  <strong>Publish date:</strong>
+  <%= @article.publish_date %>
+</p>
+
+<% if user_signed_in? && current_user.is_admin %>
+<%= link_to 'Edit', edit_article_path(@article) %> 
+<%end%>
+
+<h4>Comments : ( <%= @article.comments.length %> )</h4>
+
+<ol>
+	<% @article.comments.each do |comment| %>
+	<li>
+	
+	<%= comment.title %> - <%= comment.body %>
+	</li>
+	<%end%>
+</ol>
+
+<h4>Add comment</h4> 
+<%= form_for @comment do |f| %>
+	<%= f.label :title %><br>
+    <%= f.text_field :title %></br>
+
+    <%= f.label :body %><br>
+    <%= f.text_area :body %></br>
+
+    <%= f.submit %>
+<% end %> </br>
+
+<%= link_to 'Back', articles_path(@article.id) %>
